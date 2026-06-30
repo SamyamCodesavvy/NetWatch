@@ -1,2 +1,2 @@
 # NetWatch
-Network Monitoring &amp; Infrastructure Management Platform
+Network Monitoring and Infrastructure Management Platform
