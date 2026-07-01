@@ -2,8 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 
-from app.api import auth
-
+from app.api import auth, devices
 app = FastAPI(
     title=settings.APP_NAME,
     description="Network monitoring and infrastructure management platform",
@@ -18,6 +17,8 @@ app.add_middleware(CORSMiddleware,
 )
 
 app.include_router(auth.router)
+app.include_router(devices.router)
+
 
 
 # React dev server
