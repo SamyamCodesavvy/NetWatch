@@ -2,6 +2,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 
+from contextlib import asynccontextmanager
+from app.scheduler.jobs import start_scheduler, scheduler
+
 from app.api import auth, devices
 app = FastAPI(
     title=settings.APP_NAME,
@@ -19,9 +22,17 @@ app.add_middleware(CORSMiddleware,
 app.include_router(auth.router)
 app.include_router(devices.router)
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    start_scheduler()
+    yield
+    scheduler.shutdown()
 
+app = FastAPI(title=settings.APP_NAME, lifespan=lifespan)
 
 # React dev server
 @app.get("/health", tags=["System"])
 def health_check():
     return {"status": "ok", "app": settings.APP_NAME, "environment": settings.ENVIRONMENT}
+
+
