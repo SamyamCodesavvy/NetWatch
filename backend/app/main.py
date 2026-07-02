@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 import logging, os
 
 from app.config import get_settings
-from app.api import auth
+from app.api import auth, devices
 
 settings = get_settings()
 os.makedirs("logs", exist_ok=True)
@@ -26,7 +26,9 @@ app = FastAPI(title=settings.APP_NAME,
               description="Network Monitoring & Infrastructure Management Platform",
               lifespan=lifespan,
 )
+
 app.include_router(auth.router)
+app.include_router(devices.router)
 
 # To allow the React dev server(localhost:5173) to call this API during development
 app.add_middleware(
