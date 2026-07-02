@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 import logging, os
 
 from app.config import get_settings
+from app.scheduler.jobs import start_scheduler, scheduler
 from app.api import auth, devices
 
 settings = get_settings()
@@ -18,7 +19,9 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info(f"Starting {settings.APP_NAME} v{settings.APP_VERSION}")
+    start_scheduler()
     yield
+    scheduler.shutdown()
     logger.info("Shutting down...")
 
 app = FastAPI(title=settings.APP_NAME,
