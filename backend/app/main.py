@@ -2,7 +2,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 import logging, os
+
 from app.config import get_settings
+from app.api import auth
 
 settings = get_settings()
 os.makedirs("logs", exist_ok=True)
@@ -24,6 +26,7 @@ app = FastAPI(title=settings.APP_NAME,
               description="Network Monitoring & Infrastructure Management Platform",
               lifespan=lifespan,
 )
+app.include_router(auth.router)
 
 # To allow the React dev server(localhost:5173) to call this API during development
 app.add_middleware(
