@@ -4,6 +4,7 @@ from typing import List, Optional
 from app.utils.database import get_db
 from app.authentication.dependencies import get_current_user
 from app.models.monitoring import PingResult
+from app.models.monitoring import PortCheck
 
 router = APIRouter(prefix="/monitoring", tags=["Monitoring History"])
 @router.get("/ping")
@@ -16,3 +17,14 @@ def list_ping_results(device_id: Optional[int] = None, limit: int = 100,
     results = query.order_by(PingResult.timestamp.desc()).limit(limit).all()
     return [{"id": r.id, "hostname": r.hostname, "reachable": r.reachable,
              "latency_ms": r.latency_ms, "timestamp": r.timestamp} for r in results]
+
+@router.get("/ports")
+def list_port_checks(device_id: Optional[int] = None, limit: int = 100,
+                     db: Session = Depends(get_db),
+                     current_user=Depends(get_current_user)):
+    query = db.query(PortCheck)
+    if device_id:
+        query = query.filter(PortCheck.device_id == device_id)
+    results = query.order_by(PortCheck.timestamp.desc()).limit(limit).all()
+    return [{"id": r.id, "hostname": r.hostname, "port": r.port, "status": r.status, 
+             "response_time_ms": r.response_time_ms, "timestamp": r.timestamp} for r in results]
