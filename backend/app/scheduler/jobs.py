@@ -28,10 +28,12 @@ async def run_checks_for_device(device, db):
     from app.services.ping_service import check_ping
     from app.services.port_service import check_ports
     from app.services.http_service import check_http
+    from app.services.dns_service import check_dns
 
     check_ping(db, device)
     check_ports(db, device)
     check_http(db, device)
+    check_dns(db, device)
 
 def start_scheduler():
     scheduler.add_job(
