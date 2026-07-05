@@ -160,7 +160,7 @@ Features:
 
 ## Alert Management
 
-![Alerts](screenshots/alert.png)
+![Alerts](screenshots/alerts.png)
 
 ---
 
