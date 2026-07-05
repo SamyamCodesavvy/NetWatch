@@ -7,3 +7,4 @@ dist/
 *.log
 .pytest_cache/
 frontend/.env
+.vscode/
