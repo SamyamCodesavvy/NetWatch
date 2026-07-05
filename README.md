@@ -352,7 +352,7 @@ NetWatch incorporates modern security practices including:
 ## Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/netwatch.git
+git clone https://github.com/SamyamCodesavvy/NetWatch.git
 
 cd netwatch
 ```
