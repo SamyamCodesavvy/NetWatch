@@ -5,7 +5,8 @@ import logging, os
 
 from app.config import get_settings
 from app.scheduler.jobs import start_scheduler, scheduler
-from app.api import auth, devices, monitoring, alerts
+from app.api import auth, devices, monitoring, alerts, dashboard, search
+# agent
 
 settings = get_settings()
 os.makedirs("logs", exist_ok=True)
@@ -34,6 +35,9 @@ app.include_router(auth.router)
 app.include_router(devices.router)
 app.include_router(monitoring.router)
 app.include_router(alerts.router)
+app.include_router(dashboard.router)
+app.include_router(search.router)
+# app.include_router(agent.router)
 
 # To allow the React dev server(localhost:5173) to call this API during development
 app.add_middleware(
