@@ -5,7 +5,7 @@ import logging, os
 
 from app.config import get_settings
 from app.scheduler.jobs import start_scheduler, scheduler
-from app.api import auth, devices, monitoring
+from app.api import auth, devices, monitoring, alerts
 
 settings = get_settings()
 os.makedirs("logs", exist_ok=True)
@@ -33,6 +33,7 @@ app = FastAPI(title=settings.APP_NAME,
 app.include_router(auth.router)
 app.include_router(devices.router)
 app.include_router(monitoring.router)
+app.include_router(alerts.router)
 
 # To allow the React dev server(localhost:5173) to call this API during development
 app.add_middleware(

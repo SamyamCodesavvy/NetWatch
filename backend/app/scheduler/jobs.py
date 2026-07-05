@@ -30,12 +30,16 @@ async def run_checks_for_device(device, db):
     from app.services.http_service import check_http
     from app.services.dns_service import check_dns
     from app.services.ssl_service import check_ssl
+    from app.services.alert_service import run_alert_rules
+
 
     check_ping(db, device)
     check_ports(db, device)
     check_http(db, device)
     check_dns(db, device)
     check_ssl(db, device)
+    run_alert_rules(db, device)
+    
 
 def start_scheduler():
     scheduler.add_job(
