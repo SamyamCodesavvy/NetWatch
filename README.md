@@ -354,7 +354,7 @@ NetWatch incorporates modern security practices including:
 ```bash
 git clone https://github.com/SamyamCodesavvy/NetWatch.git
 
-cd netwatch
+cd NetWatch
 ```
 
 ---
@@ -473,6 +473,6 @@ This project demonstrates practical experience with:
 
 # 📄 License
 
-This project was developed for educational and portfolio purposes.
+Built by Samyam Giri 💙 as a personal learning / portfolio project.
 
 Feel free to fork, learn from, and extend the project.
